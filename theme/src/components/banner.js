@@ -7,20 +7,23 @@ import { Styled, jsx, Container } from "theme-ui"
 import useSiteMetadata from "../use-site-metadata"
 import HeroImage from "./hero-image"
 import Social from "./social"
+import Img from "gatsby-image"
+
 
 let additionalStyles = {}
 let bgOverlayStyles = {}
 
-const BannerContent = ({ title, tagline }) => (
+const BannerContent = ({ title, tagline, img }) => (
   <>
-    <Styled.h1>{title}</Styled.h1>
+    <Img fixed={img.fixed}/>
+    <Styled.h1></Styled.h1>
     {tagline && <p>{tagline}</p>}
     <Social />
   </>
 )
 
 const Banner = ({ children, bgOverlay, color }) => {
-  const { title, artist, bannerImg } = useSiteMetadata()
+  const { title, artist, bannerImg, bannerLogo } = useSiteMetadata()
 
   if (bannerImg) {
     additionalStyles["flexDirection"] = "column"
@@ -41,6 +44,7 @@ const Banner = ({ children, bgOverlay, color }) => {
     <BannerContent
       title={title}
       tagline={typeof artist.tagline === "undefined" ? null : artist.tagline}
+      img={bannerLogo}
     />
   )
 

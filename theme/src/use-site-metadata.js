@@ -12,7 +12,7 @@ function hasObjectAndLength(parentObj, childObjKey) {
 }
 
 export default () => {
-  const { site, bannerImg, socialImg, logoImg } = useStaticQuery(siteQuery)
+  const { site, bannerImg, socialImg, logoImg, bannerLogo } = useStaticQuery(siteQuery)
 
   /**
    * Prepare custom data from YAML config files.
@@ -59,6 +59,8 @@ export default () => {
    */
 
   site.siteMetadata.bannerImg = bannerImg
+  site.siteMetadata.bannerLogo = bannerLogo
+
   site.siteMetadata.socialImg = socialImg
   site.siteMetadata.logoImg = logoImg
 
@@ -79,6 +81,12 @@ const siteQuery = graphql`
     bannerImg: imageSharp(fluid: { src: { regex: "/artist-banner./" } }) {
       fluid(cropFocus: CENTER) {
         ...GatsbyImageSharpFluid_withWebp
+      }
+    }
+    bannerLogo: imageSharp(resize: { src: { regex: "/banner-logo./" } }) {
+      fixed(width: 400) {
+        ...GatsbyImageSharpFixed_withWebp
+
       }
     }
     socialImg: imageSharp(resize: { src: { regex: "/artist-social./" } }) {
